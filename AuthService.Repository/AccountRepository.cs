@@ -30,5 +30,11 @@ namespace AuthService.Repository
         {
             return await AccountDAO.Instance.Add(account) > 0 ? true : false;
         }
+
+        public Task<Account?> FindAccountById(int accountId)
+        {
+            var account = AccountDAO.Instance.FindById(accountId);
+            return account;
+        }
     }
 }

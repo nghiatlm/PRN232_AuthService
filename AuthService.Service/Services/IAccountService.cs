@@ -12,5 +12,6 @@ namespace AuthService.Service.Services
         public Task<bool> Register(RegisterRequest request);
         public Task CreateProfile(int accountId, string firstName, string lastName);
         Task<bool> Add(string email, string password, RoleName roleName);
+        Task<AccountResponse?> GetAccountById(int accountId);
     }
 }

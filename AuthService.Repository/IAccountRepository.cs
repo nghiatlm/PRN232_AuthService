@@ -10,6 +10,7 @@ namespace AuthService.Repository
         Task<Account> Login(string email, string password);
         Task<bool> Register(Account account);
         Task<int> Add(string email, string password, RoleName role);
+        Task<Account?> FindAccountById(int accountId);
 
     }
 }

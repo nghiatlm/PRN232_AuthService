@@ -21,5 +21,12 @@ namespace AuthService.API.Controllers
             var result = await _accountService.Add(request.Email, request.Password, request.RoleName);
             return result ? Ok(ApiResponse<object>.SuccessResponse(null, "Create successful")) : BadRequest(ApiResponse<bool>.BadRequest("Account creation failed"));
         }
+
+        [HttpGet("{accountId}")]
+        public async Task<IActionResult> GetAccountById([FromRoute] int accountId)
+        {
+            var account = await _accountService.GetAccountById(accountId);
+            return account != null ? Ok(ApiResponse<AccountResponse>.SuccessResponse(account, "Account retrieved successfully")) : NotFound(ApiResponse<object>.NotFound("Account not found"));
+        }
     }
 }

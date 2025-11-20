@@ -155,5 +155,34 @@ namespace AuthService.Service.Services
                 throw new AppException("Internal Server Error", HttpStatusCode.InternalServerError);
             }
         }
+
+        public async Task<AccountResponse?> GetAccountById(int accountId)
+        {
+            try
+            {
+                var account = await _accountRepository.FindAccountById(accountId);
+                if (account == null)
+                {
+                    throw new AppException("Account not found", HttpStatusCode.NotFound);
+                }
+                return new AccountResponse
+                {
+                    Id = account.Id,
+                    Email = account.Email,
+                    RoleName = account.RoleName,
+                    CreatedAt = account.CreatedAt,
+                    UpdatedAt = account.UpdatedAt
+                };
+            }
+            catch (AppException)
+            {
+                throw;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Register Account failed: {Message}", ex.Message);
+                throw new AppException("Internal Server Error", HttpStatusCode.InternalServerError);
+            }
+        }
     }
 }
